@@ -1,6 +1,7 @@
 package com.feed_the_beast.ftbutilities.data;
 
 import com.feed_the_beast.ftblib.FTBLibConfig;
+import com.feed_the_beast.ftblib.lib.config.RankConfigAPI;
 import com.feed_the_beast.ftblib.lib.data.ForgePlayer;
 import com.feed_the_beast.ftblib.lib.data.ForgeTeam;
 import com.feed_the_beast.ftblib.lib.math.ChunkDimPos;
@@ -189,11 +190,28 @@ public class FTBUtilitiesLoadedChunkManager implements ForgeChunkManager.Loading
 			}
 		}
 
+		long curTick = team.universe.ticks.ticks();
+
 		for (ForgePlayer player : members)
 		{
 			if (player.hasPermission(FTBUtilitiesPermissions.CHUNKLOADER_LOAD_OFFLINE))
 			{
-				return true;
+				// Check if the player has a maximum offline time assigned
+				int maxOfflineTimeMinutes = player.getRankConfig(FTBUtilitiesPermissions.CHUNKLOADER_MAX_OFFLINE_MINUTES).getInt();
+				if(maxOfflineTimeMinutes != -1)
+				{
+					long tickDiff = curTick - player.getLastTimeSeen();
+					if( tickDiff < 0 || /* Player is online right now */
+						tickDiff < (maxOfflineTimeMinutes*60000)
+					)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
 			}
 		}
 

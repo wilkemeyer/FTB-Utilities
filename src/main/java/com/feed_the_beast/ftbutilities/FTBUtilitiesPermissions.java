@@ -82,6 +82,7 @@ public class FTBUtilitiesPermissions
 	public static final String CHUNKLOADER_MAX_CHUNKS = "ftbutilities.chunkloader.max_chunks";
 	//public static final String CHUNKLOADER_OFFLINE_TIMER = FTBUtilities.MOD_ID + ".chunkloader.offline_timer";
 	public static final String CHUNKLOADER_LOAD_OFFLINE = "ftbutilities.chunkloader.load_offline";
+	public static final String CHUNKLOADER_MAX_OFFLINE_MINUTES = "ftbutilities.chunkloader.max_offline_minutes";
 
 	// Chat //
 	public static final String CHAT_SPEAK = "ftbutilities.chat.speak";
@@ -229,6 +230,7 @@ public class FTBUtilitiesPermissions
 		event.register(CLAIMS_MAX_CHUNKS, new ConfigInt(100, 0, 30000), new ConfigInt(1000));
 		event.register(CHUNKLOADER_MAX_CHUNKS, new ConfigInt(50, 0, 30000), new ConfigInt(64));
 		//event.register(CHUNKLOADER_OFFLINE_TIMER, new ConfigDouble(-1D).setMin(-1D), new ConfigDouble(-1D));
+		event.register(CHUNKLOADER_MAX_OFFLINE_MINUTES, new ConfigInt(-1, -1, 20160), new ConfigInt(-1));
 		event.register(AFK_TIMER, new ConfigTimer(Ticks.NO_TICKS));
 	}
 
