@@ -201,8 +201,9 @@ public class FTBUtilitiesLoadedChunkManager implements ForgeChunkManager.Loading
 				if(maxOfflineTimeMinutes != -1)
 				{
 					long tickDiff = curTick - player.getLastTimeSeen();
+
 					if( tickDiff < 0 || /* Player is online right now */
-						tickDiff < (maxOfflineTimeMinutes*60000)
+						tickDiff < (maxOfflineTimeMinutes*1200)
 					)
 					{
 						return true;
@@ -214,7 +215,6 @@ public class FTBUtilitiesLoadedChunkManager implements ForgeChunkManager.Loading
 				}
 			}
 		}
-
 		return false;
 	}
 }
